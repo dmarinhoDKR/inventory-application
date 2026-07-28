@@ -1,0 +1,28 @@
+{
+  "name": "partshelf",
+  "version": "1.0.0",
+  "description": "A computer parts inventory application built with Express, EJS, and PostgreSQL",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "node --watch app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dmarinhoDKR/inventory-application.git"
+  },
+  "keywords": [],
+  "author": "Daniel Figueredo",
+  "license": "MIT",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/dmarinhoDKR/inventory-application/issues"
+  },
+  "homepage": "https://github.com/dmarinhoDKR/inventory-application#readme",
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "ejs": "^6.0.1",
+    "express": "^5.2.1",
+    "pg": "^8.22.0"
+  }
+}

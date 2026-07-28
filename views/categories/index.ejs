@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <title><%= title %> | PartShelf</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <main class="page-shell">
+        <header>
+            <p class="eyebrow">PartShelf inventory</p>
+            <h1><%= title %></h1>
+            <p class="lead">
+                Browse computer parts by category.
+            </p>
+        </header>
+
+        <ul class="inventory-list">
+            <% categories.forEach((category) => { %>
+                <li class="inventory-card">
+                    <h2>
+                        <a href="/categories/<%= category.id %>">
+                            <%= category.name %>
+                        </a>
+                    </h2>
+
+                    <p><%= category.description %></p>
+
+                    <p>
+                        <strong><%= category.item_count %></strong>
+                        <%= category.item_count === 1 ? "item" : "items" %>
+                    </p>
+                </li>
+            <% }); %>
+        </ul>
+
+        <p class="page-actions">
+            <a href="/">Return to PartShelf</a>
+        </p>
+    </main>
+</body>
+</html>

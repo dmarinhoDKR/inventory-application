@@ -12,15 +12,38 @@
 <body>
     <main class="page-shell">
         <p class="eyebrow">The Odin Project</p>
-        <h1><%= appName %></h1>
+        <h1>PartShelf</h1>
+
         <p class="lead">
             A computer parts inventory for managing categories,
             products, prices, and stock quantities.
         </p>
 
+        <nav
+            class="primary-actions"
+            aria-label="Inventory navigation"
+        >
+            <a
+                class="button-link"
+                href="/categories"
+            >
+                Browse categories
+            </a>
+
+            <a
+                class="button-link button-link-secondary"
+                href="/items"
+            >
+                Browse all items
+            </a>
+        </nav>
+
         <section class="status-card">
-            <h2>Application status</h2>
-            <p>Express and EJS are configured successfully.</p>
+            <h2>Inventory overview</h2>
+            <p>
+                Review the available categories and inspect every
+                part currently stored in PostgreSQL.
+            </p>
         </section>
     </main>
 </body>

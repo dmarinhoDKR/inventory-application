@@ -13,7 +13,7 @@ body {
 }
 
 a {
-    color: #3157c8;
+    color: #4338ca;
     font-weight: 700;
 }
 
@@ -50,4 +50,127 @@ h1 {
     padding: 1.25rem;
     border: 1px solid #d8dee9;
     border-radius: 0.5rem;
+}
+
+a:hover {
+    color: #312e81;
+}
+
+a:focus-visible,
+button:focus-visible {
+    outline: 0.2rem solid #818cf8;
+    outline-offset: 0.2rem;
+}
+
+.primary-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin: 1.5rem 0 2rem;
+}
+
+.button-link {
+    display: inline-block;
+    padding: 0.7rem 1rem;
+    border: 1px solid #4338ca;
+    border-radius: 0.5rem;
+    color: #ffffff;
+    background: #4338ca;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.button-link:hover {
+    color: #ffffff;
+    background: #312e81;
+}
+
+.button-link-secondary {
+    color: #4338ca;
+    background: #ffffff;
+}
+
+.button-link-secondary:hover {
+    color: #312e81;
+    background: #eef2ff;
+}
+
+.inventory-list {
+    display: grid;
+    gap: 1rem;
+    margin: 1.5rem 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.inventory-card {
+    padding: 1.25rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.75rem;
+    background: #ffffff;
+}
+
+.inventory-card h2,
+.inventory-card h3 {
+    margin-top: 0;
+}
+
+.inventory-card p:last-child {
+    margin-bottom: 0;
+}
+
+.page-actions {
+    margin-top: 2rem;
+}
+
+.item-details {
+    display: grid;
+    gap: 1rem;
+    margin: 2rem 0 0;
+}
+
+.item-details div {
+    padding: 1rem;
+    border-bottom: 1px solid #d1d5db;
+}
+
+.item-details dt {
+    color: #6b7280;
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.item-details dd {
+    margin: 0.35rem 0 0;
+    font-size: 1.05rem;
+}
+
+@media (min-width: 42rem) {
+    .inventory-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .item-details {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 32rem) {
+    body {
+        padding: 1rem;
+    }
+
+    .page-shell {
+        padding: 1.25rem;
+    }
+
+    .primary-actions {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .button-link {
+        text-align: center;
+    }
 }

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <title><%= title %> | PartShelf</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <main class="page-shell">
+        <header>
+            <p class="eyebrow">Inventory item</p>
+            <h1><%= item.name %></h1>
+            <p class="lead"><%= item.description %></p>
+        </header>
+
+        <dl class="item-details">
+            <div>
+                <dt>Manufacturer</dt>
+                <dd><%= item.manufacturer %></dd>
+            </div>
+            <div>
+                <dt>SKU</dt>
+                <dd><%= item.sku %></dd>
+            </div>
+            <div>
+                <dt>Category</dt>
+                <dd>
+                    <a href="/categories/<%= item.category_id %>">
+                        <%= item.category_name %>
+                    </a>
+                </dd>
+            </div>
+            <div>
+                <dt>Price</dt>
+                <dd>$<%= item.price %></dd>
+            </div>
+            <div>
+                <dt>Quantity</dt>
+                <dd><%= item.quantity %></dd>
+            </div>
+        </dl>
+
+        <p class="page-actions">
+            <a href="/items">Back to all items</a>
+        </p>
+    </main>
+</body>
+</html>

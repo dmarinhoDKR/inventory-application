@@ -12,6 +12,26 @@ itemRouter.get(
 );
 
 itemRouter.get(
+    "/new",
+    itemController.showNewItemForm,
+);
+
+itemRouter.post(
+    "/new",
+    itemController.createItem,
+);
+
+itemRouter.get(
+    "/:itemId/edit",
+    itemController.showEditItemForm,
+);
+
+itemRouter.post(
+    "/:itemId/edit",
+    itemController.updateItem,
+);
+
+itemRouter.get(
     "/:itemId",
     itemController.showItem,
 );

@@ -44,9 +44,18 @@
             </div>
         </dl>
 
-        <p class="page-actions">
-            <a href="/items">Back to all items</a>
-        </p>
+        <div class="page-actions">
+            <a
+                class="button-link"
+                href="/items/<%= item.id %>/edit"
+            >
+                Edit item
+            </a>
+
+            <a href="/items">
+                Back to all items
+            </a>
+        </div>
     </main>
 </body>
 </html>

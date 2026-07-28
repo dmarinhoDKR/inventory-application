@@ -56,8 +56,52 @@ async function findItemsByCategoryId(categoryId) {
     return result.rows;
 }
 
+async function create(category) {
+    const result = await pool.query(
+        `
+        INSERT INTO categories (
+            name,
+            description
+        )
+        VALUES ($1, $2)
+        RETURNING id
+        `,
+        [
+            category.name,
+            category.description,
+        ],
+    );
+
+    return result.rows[0];
+}
+
+async function update(
+    categoryId,
+    category,
+) {
+    const result = await pool.query(
+        `
+        UPDATE categories
+        SET
+            name = $1,
+            description = $2
+        WHERE id = $3
+        RETURNING id
+        `,
+        [
+            category.name,
+            category.description,
+            categoryId,
+        ],
+    );
+
+    return result.rows[0] ?? null;
+}
+
 module.exports = {
     findAll,
     findById,
     findItemsByCategoryId,
+    create,
+    update,
 };

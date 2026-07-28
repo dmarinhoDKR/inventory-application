@@ -46,7 +46,69 @@ async function findById(itemId) {
     return result.rows[0] ?? null;
 }
 
+async function create(item) {
+    const result = await pool.query(
+        `
+        INSERT INTO items (
+            name,
+            description,
+            manufacturer,
+            sku,
+            price,
+            quantity,
+            category_id
+        )
+        VALUES ($1, $2, $3, $4, $5, $6, $7)
+        RETURNING id
+        `,
+        [
+            item.name,
+            item.description,
+            item.manufacturer,
+            item.sku,
+            item.price,
+            item.quantity,
+            item.categoryId,
+        ],
+    );
+
+    return result.rows[0];
+}
+
+async function update(itemId, item) {
+    const result = await pool.query(
+        `
+        UPDATE items
+        SET
+            name = $1,
+            description = $2,
+            manufacturer = $3,
+            sku = $4,
+            price = $5,
+            quantity = $6,
+            category_id = $7,
+            updated_at = CURRENT_TIMESTAMP
+        WHERE id = $8
+        RETURNING id
+        `,
+        [
+            item.name,
+            item.description,
+            item.manufacturer,
+            item.sku,
+            item.price,
+            item.quantity,
+            item.categoryId,
+            itemId,
+        ],
+    );
+
+    return result.rows[0] ?? null;
+}
+
 module.exports = {
+    create,
     findAll,
     findById,
+    update,
 };

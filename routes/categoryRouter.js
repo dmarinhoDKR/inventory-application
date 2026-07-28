@@ -12,6 +12,26 @@ categoryRouter.get(
 );
 
 categoryRouter.get(
+    "/new",
+    categoryController.showNewCategoryForm,
+);
+
+categoryRouter.post(
+    "/new",
+    categoryController.createCategory,
+);
+
+categoryRouter.get(
+    "/:categoryId/edit",
+    categoryController.showEditCategoryForm,
+);
+
+categoryRouter.post(
+    "/:categoryId/edit",
+    categoryController.updateCategory,
+);
+
+categoryRouter.get(
     "/:categoryId",
     categoryController.showCategory,
 );

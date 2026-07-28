@@ -174,3 +174,65 @@ button:focus-visible {
         text-align: center;
     }
 }
+
+.inventory-form {
+    display: grid;
+    gap: 1.25rem;
+    margin-top: 2rem;
+}
+
+.form-field {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.form-field label {
+    font-weight: 700;
+}
+
+.form-field input,
+.form-field textarea,
+.form-field select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #9ca3af;
+    border-radius: 0.5rem;
+    color: inherit;
+    background: #ffffff;
+    font: inherit;
+}
+
+.form-field textarea {
+    resize: vertical;
+}
+
+.form-actions,
+.page-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+}
+
+.form-actions {
+    margin-top: 0.5rem;
+}
+
+button.button-link {
+    font: inherit;
+    cursor: pointer;
+}
+
+.form-errors {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    border: 1px solid #dc2626;
+    border-radius: 0.5rem;
+    color: #991b1b;
+    background: #fef2f2;
+}
+
+.form-errors h2 {
+    margin-top: 0;
+    font-size: 1.1rem;
+}

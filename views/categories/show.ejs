@@ -46,9 +46,18 @@
             <% } %>
         </section>
 
-        <p class="page-actions">
-            <a href="/categories">Back to categories</a>
-        </p>
+        <div class="page-actions">
+            <a
+                class="button-link"
+                href="/categories/<%= category.id %>/edit"
+            >
+                Edit category
+            </a>
+
+            <a href="/categories">
+                Back to categories
+            </a>
+        </div>
     </main>
 </body>
 </html>

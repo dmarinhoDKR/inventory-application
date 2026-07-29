@@ -106,9 +106,23 @@ async function update(itemId, item) {
     return result.rows[0] ?? null;
 }
 
+async function remove(itemId) {
+    const result = await pool.query(
+        `
+        DELETE FROM items
+        WHERE id = $1
+        RETURNING id
+        `,
+        [itemId],
+    );
+
+    return result.rows[0] ?? null;
+}
+
 module.exports = {
     create,
     findAll,
     findById,
+    remove,
     update,
 };

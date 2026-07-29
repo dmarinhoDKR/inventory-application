@@ -180,6 +180,22 @@ async function renderForm(
     );
 }
 
+function renderDeletePage(
+    response,
+    {
+        item,
+        statusCode = 200,
+    },
+) {
+    response.status(statusCode).render(
+        "items/delete",
+        {
+            title: "Delete Item",
+            item,
+        },
+    );
+}
+
 async function listItems(
     _request,
     response,
@@ -397,9 +413,63 @@ async function updateItem(
     }
 }
 
+async function showDeleteItemPage(
+    request,
+    response,
+) {
+    const itemId = parseItemId(
+        request.params.itemId,
+    );
+
+    if (itemId === null) {
+        renderNotFound(response);
+        return;
+    }
+
+    const item = await itemRepository.findById(
+        itemId,
+    );
+
+    if (!item) {
+        renderNotFound(response);
+        return;
+    }
+
+    renderDeletePage(response, {
+        item,
+    });
+}
+
+async function deleteItem(
+    request,
+    response,
+) {
+    const itemId = parseItemId(
+        request.params.itemId,
+    );
+
+    if (itemId === null) {
+        renderNotFound(response);
+        return;
+    }
+
+    const deletedItem = await itemRepository.remove(
+        itemId,
+    );
+
+    if (!deletedItem) {
+        renderNotFound(response);
+        return;
+    }
+
+    response.redirect("/items");
+}
+
 module.exports = {
     createItem,
+    deleteItem,
     listItems,
+    showDeleteItemPage,
     showEditItemForm,
     showItem,
     showNewItemForm,

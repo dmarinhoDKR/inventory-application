@@ -71,6 +71,24 @@ function renderForm(
     );
 }
 
+function renderDeletePage(
+    response,
+    {
+        category,
+        items,
+        statusCode = 200,
+    },
+) {
+    response.status(statusCode).render(
+        "categories/delete",
+        {
+            title: "Delete Category",
+            category,
+            items,
+        },
+    );
+}
+
 async function listCategories(
     _request,
     response,
@@ -280,11 +298,114 @@ async function updateCategory(
     }
 }
 
+async function showDeleteCategoryPage(
+    request,
+    response,
+) {
+    const categoryId = parseCategoryId(
+        request.params.categoryId,
+    );
+
+    if (categoryId === null) {
+        renderNotFound(response);
+        return;
+    }
+
+    const category = await categoryRepository.findById(
+        categoryId,
+    );
+
+    if (!category) {
+        renderNotFound(response);
+        return;
+    }
+
+    const items = (
+        await categoryRepository.findItemsByCategoryId(
+            categoryId,
+        )
+    );
+
+    renderDeletePage(response, {
+        category,
+        items,
+    });
+}
+
+async function deleteCategory(
+    request,
+    response,
+) {
+    const categoryId = parseCategoryId(
+        request.params.categoryId,
+    );
+
+    if (categoryId === null) {
+        renderNotFound(response);
+        return;
+    }
+
+    const category = await categoryRepository.findById(
+        categoryId,
+    );
+
+    if (!category) {
+        renderNotFound(response);
+        return;
+    }
+
+    const items = (
+        await categoryRepository.findItemsByCategoryId(
+            categoryId,
+        )
+    );
+
+    if (items.length > 0) {
+        renderDeletePage(response, {
+            category,
+            items,
+            statusCode: 409,
+        });
+        return;
+    }
+
+    try {
+        const deletedCategory = (
+            await categoryRepository.remove(categoryId)
+        );
+
+        if (!deletedCategory) {
+            renderNotFound(response);
+            return;
+        }
+
+        response.redirect("/categories");
+    } catch (error) {
+        if (error.code !== "23503") {
+            throw error;
+        }
+
+        const currentItems = (
+            await categoryRepository.findItemsByCategoryId(
+                categoryId,
+            )
+        );
+
+        renderDeletePage(response, {
+            category,
+            items: currentItems,
+            statusCode: 409,
+        });
+    }
+}
+
 module.exports = {
+    createCategory,
+    deleteCategory,
     listCategories,
     showCategory,
-    showNewCategoryForm,
-    createCategory,
+    showDeleteCategoryPage,
     showEditCategoryForm,
+    showNewCategoryForm,
     updateCategory,
 };

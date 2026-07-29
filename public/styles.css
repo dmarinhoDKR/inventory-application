@@ -95,6 +95,16 @@ button:focus-visible {
     background: #eef2ff;
 }
 
+.button-link-danger {
+    border-color: #b91c1c;
+    background: #b91c1c;
+}
+
+.button-link-danger:hover {
+    color: #ffffff;
+    background: #991b1b;
+}
+
 .inventory-list {
     display: grid;
     gap: 1rem;

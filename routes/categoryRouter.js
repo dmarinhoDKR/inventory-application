@@ -22,6 +22,16 @@ categoryRouter.post(
 );
 
 categoryRouter.get(
+    "/:categoryId/delete",
+    categoryController.showDeleteCategoryPage,
+);
+
+categoryRouter.post(
+    "/:categoryId/delete",
+    categoryController.deleteCategory,
+);
+
+categoryRouter.get(
     "/:categoryId/edit",
     categoryController.showEditCategoryForm,
 );

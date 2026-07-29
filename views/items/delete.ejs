@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <title><%= title %> | <%= appName %></title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <main class="page-shell">
+        <header>
+            <p class="eyebrow">Delete item</p>
+            <h1><%= item.name %></h1>
+            <p class="lead">
+                Review this inventory item before deleting it.
+            </p>
+        </header>
+
+        <section class="status-card">
+            <h2>Confirm deletion</h2>
+
+            <p>
+                <strong>Manufacturer:</strong>
+                <%= item.manufacturer %>
+            </p>
+
+            <p>
+                <strong>SKU:</strong>
+                <%= item.sku %>
+            </p>
+
+            <p>
+                Deleting this item cannot be undone.
+            </p>
+
+            <form
+                method="POST"
+                action="/items/<%= item.id %>/delete"
+            >
+                <button
+                    class="button-link button-link-danger"
+                    type="submit"
+                >
+                    Delete item
+                </button>
+            </form>
+        </section>
+
+        <p class="page-actions">
+            <a href="/items/<%= item.id %>">
+                Back to item
+            </a>
+        </p>
+    </main>
+</body>
+</html>

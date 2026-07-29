@@ -32,6 +32,16 @@ itemRouter.post(
 );
 
 itemRouter.get(
+    "/:itemId/delete",
+    itemController.showDeleteItemPage,
+);
+
+itemRouter.post(
+    "/:itemId/delete",
+    itemController.deleteItem,
+);
+
+itemRouter.get(
     "/:itemId",
     itemController.showItem,
 );

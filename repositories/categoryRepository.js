@@ -98,10 +98,24 @@ async function update(
     return result.rows[0] ?? null;
 }
 
+async function remove(categoryId) {
+    const result = await pool.query(
+        `
+        DELETE FROM categories
+        WHERE id = $1
+        RETURNING id
+        `,
+        [categoryId],
+    );
+
+    return result.rows[0] ?? null;
+}
+
 module.exports = {
+    create,
     findAll,
     findById,
     findItemsByCategoryId,
-    create,
+    remove,
     update,
 };

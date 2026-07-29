@@ -9,6 +9,7 @@ const itemRouter = require("./routes/itemRouter");
 
 const app = express();
 const port = process.env.PORT || 3000;
+const hostname = "0.0.0.0";
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
@@ -29,9 +30,9 @@ app.use((_request, response) => {
 });
 
 if (require.main === module) {
-    app.listen(port, () => {
+    app.listen(port, hostname, () => {
         console.log(
-            `PartShelf running at http://localhost:${port}`,
+            `PartShelf running at http://${hostname}:${port}`,
         );
     });
 }

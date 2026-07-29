@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <title><%= title %> | <%= appName %></title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <main class="page-shell">
+        <header>
+            <p class="eyebrow">Delete category</p>
+            <h1><%= category.name %></h1>
+            <p class="lead">
+                Review the category before deleting it.
+            </p>
+        </header>
+
+        <% if (items.length > 0) { %>
+            <section
+                class="form-errors"
+                aria-labelledby="delete-conflict-heading"
+            >
+                <h2 id="delete-conflict-heading">
+                    This category cannot be deleted
+                </h2>
+
+                <p>
+                    Move or delete the following items first:
+                </p>
+
+                <ul>
+                    <% items.forEach((item) => { %>
+                        <li>
+                            <a href="/items/<%= item.id %>">
+                                <%= item.name %>
+                            </a>
+                        </li>
+                    <% }); %>
+                </ul>
+            </section>
+        <% } else { %>
+            <section class="status-card">
+                <h2>Confirm deletion</h2>
+                <p>
+                    This category is empty. Deleting it cannot
+                    be undone.
+                </p>
+
+                <form
+                    method="POST"
+                    action="/categories/<%= category.id %>/delete"
+                >
+                    <button
+                        class="button-link button-link-danger"
+                        type="submit"
+                    >
+                        Delete category
+                    </button>
+                </form>
+            </section>
+        <% } %>
+
+        <p class="page-actions">
+            <a href="/categories/<%= category.id %>">
+                Back to category
+            </a>
+        </p>
+    </main>
+</body>
+</html>

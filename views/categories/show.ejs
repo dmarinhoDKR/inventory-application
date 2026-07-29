@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <title><%= title %> | PartShelf</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <main class="page-shell">
+        <header>
+            <p class="eyebrow">Category</p>
+            <h1><%= category.name %></h1>
+            <p class="lead"><%= category.description %></p>
+        </header>
+
+        <section>
+            <h2>Items</h2>
+
+            <% if (items.length === 0) { %>
+                <p>This category does not contain any items.</p>
+            <% } else { %>
+                <ul class="inventory-list">
+                    <% items.forEach((item) => { %>
+                        <li class="inventory-card">
+                            <h3>
+                                <a href="/items/<%= item.id %>">
+                                    <%= item.name %>
+                                </a>
+                            </h3>
+
+                            <p>
+                                Manufacturer:
+                                <strong><%= item.manufacturer %></strong>
+                            </p>
+
+                            <p>SKU: <%= item.sku %></p>
+                            <p>Price: $<%= item.price %></p>
+                            <p>Quantity: <%= item.quantity %></p>
+                        </li>
+                    <% }); %>
+                </ul>
+            <% } %>
+        </section>
+
+        <div class="page-actions">
+            <a
+                class="button-link"
+                href="/categories/<%= category.id %>/edit"
+            >
+                Edit category
+            </a>
+
+            <a
+                class="button-link button-link-danger"
+                href="/categories/<%= category.id %>/delete"
+            >
+                Delete category
+            </a>
+
+            <a href="/categories">
+                Back to categories
+            </a>
+        </div>
+    </main>
+</body>
+</html>

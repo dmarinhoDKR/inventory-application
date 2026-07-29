@@ -8,6 +8,24 @@ PartShelf allows users to manage product categories and the computer parts store
 ![Express](https://img.shields.io/badge/Express-0F172A?style=flat-square&logo=express&logoColor=FFFFFF)
 ![EJS](https://img.shields.io/badge/EJS-0F172A?style=flat-square&logo=ejs&logoColor=B4CA65)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-0F172A?style=flat-square&logo=postgresql&logoColor=4169E1)
+![Neon](https://img.shields.io/badge/Neon-0F172A?style=flat-square&logo=neon&logoColor=00E599)
+![Render](https://img.shields.io/badge/Render-0F172A?style=flat-square&logo=render&logoColor=FFFFFF)
+
+## Live demo
+
+[Open PartShelf](https://partshelf.onrender.com)
+
+> The free Render instance may take up to a minute to respond after a period of inactivity.
+
+## Screenshots
+
+| Home | Categories |
+|---|---|
+| ![PartShelf home page](docs/screenshots/partshelf-home.png) | ![PartShelf category list](docs/screenshots/partshelf-categories.png) |
+
+| Item details | New item form |
+|---|---|
+| ![PartShelf item details](docs/screenshots/partshelf-item-details.png) | ![PartShelf new item form](docs/screenshots/partshelf-item-form.png) |
 
 ## Features
 
@@ -32,6 +50,8 @@ PartShelf allows users to manage product categories and the computer parts store
 - `pg`
 - `dotenv`
 - HTML and CSS
+- Neon
+- Render
 
 ## Data model
 
@@ -65,7 +85,7 @@ The complete design is documented in [docs/database-design.md](docs/database-des
 
 ## Requirements
 
-- Node.js 18 or later
+- Node.js 24
 - npm
 - PostgreSQL 16 or a compatible PostgreSQL version
 
@@ -204,6 +224,25 @@ npm run dev
 
 The application also accepts a `PORT` environment variable.
 
+## Deployment
+
+The public application is deployed at:
+
+[https://partshelf.onrender.com](https://partshelf.onrender.com)
+
+The production environment uses:
+
+- a Render web service in the Virginia region;
+- a Neon PostgreSQL 16 database in the AWS US East 1 region;
+- a pooled PostgreSQL connection with SSL certificate verification;
+- `DATABASE_URL` stored as a secret environment variable in Render;
+- `npm ci` as the build command;
+- `npm start` as the start command.
+
+The production schema and initial data were applied once with `npm run db:seed`. Database seeding is not part of regular deployments.
+
+Render provides the `PORT` environment variable automatically. The application listens on `0.0.0.0` so it can accept external traffic.
+
 ## Routes
 
 ### General
@@ -252,7 +291,8 @@ inventory-application/
 │   ├── schema.sql
 │   └── seed.js
 ├── docs/
-│   └── database-design.md
+│   ├── database-design.md
+│   └── screenshots/
 ├── public/
 │   └── styles.css
 ├── repositories/
@@ -304,13 +344,20 @@ The project has been checked through:
 - blocked deletion of populated categories;
 - successful deletion of empty categories and items;
 - repeatable database seeding.
+- successful deployment to Render;
+- successful connection from Render to Neon;
+- production schema and seed execution;
+- public route and static asset checks;
+- complete create, read, update, and delete verification against the deployed application;
+- `409 Conflict` verification for deletion of a populated category;
+- removal of temporary production verification records.
 
 ## Current limitations
 
 - The application does not include authentication or user accounts.
 - Management routes are publicly accessible.
 - Automated tests have not yet been added.
-- The project has not yet been deployed.
+- The free Render instance may spin down after inactivity, causing a delayed first request.
 
 ## Project stages
 
@@ -320,6 +367,8 @@ The project has been checked through:
 4. Added category and item read pages.
 5. Added create and update forms with validation.
 6. Added deletion confirmation and category-protection rules.
+7. Documented the PartShelf setup, behavior, and local database workflow.
+8. Prepared and deployed the application with Render and Neon.
 
 ## License
 

@@ -3,6 +3,10 @@ const path = require("node:path");
 const dotenv = require("dotenv");
 const { Pool } = require("pg");
 
+if (process.env.NODE_ENV === "test") {
+    throw new Error("Tests must provide an isolated PostgreSQL pool.");
+}
+
 dotenv.config({
     path: path.join(__dirname, "..", ".env"),
     quiet: true,

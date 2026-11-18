@@ -224,6 +224,55 @@ npm run dev
 
 The application also accepts a `PORT` environment variable.
 
+## Integration tests
+
+The suite uses Jest, Supertest, Node.js 24, npm, and a dedicated PostgreSQL 16
+instance. To run it locally with Docker, install dependencies with `npm ci`
+and start a disposable instance. The password below is for this container only.
+
+```sh
+docker run --rm -d --name partshelf-test -p 127.0.0.1:55432:5432 --tmpfs /var/lib/postgresql/data -e POSTGRES_USER=partshelf_test -e POSTGRES_DB=partshelf_test -e POSTGRES_PASSWORD=disposable-local-password postgres:16
+docker exec partshelf-test pg_isready -h 127.0.0.1 -U partshelf_test -d partshelf_test
+```
+
+When PostgreSQL is ready, run:
+
+```sh
+PARTSHELF_TEST_DB_PASSWORD=disposable-local-password npm test
+```
+
+In PowerShell, run:
+
+```powershell
+$env:PARTSHELF_TEST_DB_PASSWORD = "disposable-local-password"
+npm test
+Remove-Item Env:PARTSHELF_TEST_DB_PASSWORD
+```
+
+Stop the disposable instance with `docker stop partshelf-test`.
+
+The suite requires `NODE_ENV=test` (set by Jest when absent) and a dedicated
+password. It connects only to `127.0.0.1:55432` as `partshelf_test` in the
+`partshelf_test` database. The application database pool refuses to load in
+test mode. The suite supplies a real test pool without reading `.env` or
+`DATABASE_URL`. It applies `db/schema.sql` in a new randomly named schema,
+resets only that schema's tables before each case, and drops only that schema
+at the end. A forcibly interrupted run may leave its schema in a persistent
+test instance.
+
+The suite covers:
+
+- Valid item creation and update, including redirects and persisted values.
+- Negative price and negative or fractional quantities, with HTTP `400`.
+- Duplicate SKU rejection with HTTP `400` and preservation of the existing item.
+- Category deletion blocked with HTTP `409` while it still contains items.
+- HTTP `404` for missing items, missing categories, and unknown routes.
+
+GitHub Actions runs `npm ci` and `npm test` on pushes and pull requests with a
+fresh PostgreSQL service. The suite exercises HTTP forms and database
+persistence. Browser interactions, deployment, and the full CRUD matrix are
+outside its scope.
+
 ## Deployment
 
 The public application is deployed at:
@@ -356,7 +405,6 @@ The project has been checked through:
 
 - The application does not include authentication or user accounts.
 - Management routes are publicly accessible.
-- Automated tests have not yet been added.
 - The free Render instance may spin down after inactivity, causing a delayed first request.
 
 ## Project stages
